@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TextArea?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.ColumnConstraints?>
+<?import javafx.scene.layout.GridPane?>
+<?import javafx.scene.layout.RowConstraints?>
+
+<GridPane alignment="center" hgap="10" vgap="10" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.zakharenko.lab02.controller.Controller">
+   <columnConstraints>
+      <ColumnConstraints />
+   </columnConstraints>
+   <rowConstraints>
+      <RowConstraints />
+   </rowConstraints>
+   <children>
+      <AnchorPane prefHeight="554.0" prefWidth="670.0">
+         <children>
+            <Label layoutX="90.0" layoutY="22.0" text="SERVER" />
+            <Button fx:id="buttonJoin" layoutX="39.0" layoutY="223.0" mnemonicParsing="false" prefHeight="38.0" prefWidth="184.0" text="join to server" />
+            <TextField fx:id="portEdit" layoutX="97.0" layoutY="123.0" />
+            <Label layoutX="39.0" layoutY="126.0" prefHeight="18.0" prefWidth="41.0" text="PORT" />
+            <Label layoutX="39.0" layoutY="171.0" prefHeight="18.0" prefWidth="41.0" text="IP" />
+            <TextField fx:id="editIp" layoutX="97.0" layoutY="167.0" />
+            <TextField fx:id="nameEdit" layoutX="97.0" layoutY="79.0" />
+            <Label layoutX="39.0" layoutY="82.0" prefHeight="18.0" prefWidth="41.0" text="Name" />
+            <TextArea fx:id="textAreaChat" layoutX="274.0" layoutY="22.0" prefHeight="448.0" prefWidth="378.0" />
+            <TextArea fx:id="textAreaMessage" layoutX="274.0" layoutY="484.0" prefHeight="58.0" prefWidth="266.0" />
+            <Button fx:id="sendButton" layoutX="560.0" layoutY="484.0" mnemonicParsing="false" prefHeight="58.0" prefWidth="95.0" text="Send" />
+         </children>
+      </AnchorPane>
+   </children>
+</GridPane>

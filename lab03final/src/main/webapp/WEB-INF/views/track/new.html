@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<!--    <form th:method="post" th:action="@{/playlists/new}" th:object="${playlist}" enctype="multipart/form-data">-->
+<!--        <label for="playlistName">Playlist name</label>-->
+<!--        <input type="text" id="playlistName" th:field="*{name}">-->
+<!--        <input type="file" name="file" >-->
+<!--        <input type="submit">-->
+<!--    </form>-->
+    <form th:action="@{/tracks}" th:method="post" enctype="multipart/form-data">
+<!--        <label for="trackName"></label><input type="text" th:field="*{name}" id="trackName">-->
+<!--        <label for="trackPath"></label><input type="text" th:field="*{path}" id="trackPath">-->
+        <input type="file" name="file">
+        <input type="submit" value="Upload">
+    </form>
+    <a th:href="@{/playlists}">
+        <button>End</button>
+    </a>
+    <p>//////////////////////////////////////////////////////</p>
+    <ul>
+        <th:block th:each="trackItem : ${playlist.getTrackList()}">
+            <li th:utext="${trackItem.name}"></li>
+        </th:block>
+    </ul>
+</body>
+</html>

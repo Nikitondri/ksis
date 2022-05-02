@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+<!--    <link rel="stylesheet" href="${pageContext.request.contextPath}/sass/style.css">-->
+<!--    <link rel="stylesheet" th:href="@{../sass/style.css}">-->
+<!--    <link rel="stylesheet" href="../sass/style.css">-->
+<!--    <link rel="stylesheet" th:href="@{../sass/style.css}">-->
+    <link rel="stylesheet" type="text/css" media="all" href="/sass/style.css" th:href="@{/sass/style.css}">
+<!--    <link rel="stylesheet" th:href="@{/WEB_INF/sass/style.css}">-->
+    <script type="text/javascript" src="/js/login.js" th:src="@{/js/login.js}"></script>
+    <title>Authorization</title>
+</head>
+<body>
+<div class="authorization_background">
+    <img th:src="@{/img/background.jpg}" alt="back">
+</div>
+<section class="enter">
+    <h1 class="enter_title">Welcome to pempo bird</h1>
+    <div class="divider"></div>
+    <div class="enter_choice">
+        <div class="enter_buttons">
+            <input type="checkbox" id="clickLogin">
+            <label for="clickLogin" class="clickLogin">login</label>
+            <input type="checkbox" id="clickRegister">
+            <label for="clickRegister" class="clickRegister">register</label>
+<!--            <div class="error_message"><c:out value="${error}"/></div>-->
+            <!--/*@thymesVar id="error" type="java.lang.String"*/-->
+            <div class="error_message" th:text="${error}"></div>
+
+            <div class="modal_login">
+                <label for="clickLogin" id="times"><img src="../icon/back.svg" alt="back"></label>
+                <h2 class="login_title">Login</h2>
+                <div class="divider"></div>
+                <form class="login_form" th:action="@{/users}" th:method="get">
+                    <label class="login_label" for="username">Username</label>
+                    <input class="login_input" th:name="login" type="text" placeholder="Email or Phone" id="username">
+
+                    <label class="login_label" for="password">Password</label>
+                    <input class="login_input"
+                           th:name="password"
+                           type="password"
+                           placeholder="Password"
+                           id="password"
+                           pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{6,}"
+                           title="Password must be 8 characters or more, consisting of at least one number and one uppercase and lowercase letter"
+                    >
+                    <button class="login_button" type="submit">Log In</button>
+                </form>
+            </div>
+
+            <div class="modal_register">
+                <label for="clickRegister" id="timesRegister"><img th:src="@{/icon/back.svg}" alt="back"></label>
+                <h2 class="login_title">Register</h2>
+                <div class="divider"></div>
+                <form class="register_form" th:action="@{/users}" th:method="post" th:object="${user}">
+                    <label class="login_label" for="usernameRegister">Username</label>
+                    <input class="login_input" th:field="*{login}" name="login" type="text" placeholder="Email or Phone" id="usernameRegister">
+
+                    <label class="login_label" for="passwordRegister">Password</label>
+                    <input class="login_input"
+                           th:field="*{password}"
+                           name="password"
+                           type="password"
+                           onkeyup='check();'
+                           placeholder="Password"
+                           id="passwordRegister"
+                           pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{6,}"
+                           title="Password must be 8 characters or more, consisting of at least one number and one uppercase and lowercase letter"
+                    >
+                    <label class="login_label" for="password">Repeat password</label>
+                    <input class="login_input"
+                           onkeyup='check();'
+                           name="repeatPassword"
+                           type="password"
+                           placeholder="Repeat password"
+                           pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{6,}"
+                           id="passwordRepeat"
+                    >
+                    <div class="register_error">
+                        <span class="register_message_error" id='message'></span>
+                    </div>
+                    <button id="registerButton" class="login_button" type="submit" value="SIGN_UP">Sign Up</button>
+                </form>
+            </div>
+
+        </div>
+
+        <img class="enter_logo_img" th:src="@{/icon/main_logo.png}" alt="main logo"/>
+    </div>
+</section>
+
+</body>
+</html>

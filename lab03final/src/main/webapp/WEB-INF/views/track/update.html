@@ -1,0 +1,14 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Update</title>
+</head>
+<body>
+    <form th:object="${track}" th:method="patch" th:action="@{/tracks}">
+        <label for="namePlaylist"></label><input type="text" th:field="*{name}" id="namePlaylist">
+        <label for="updateButton">Update: </label>
+        <input th:type="submit" th:value="UPDATE" id="updateButton">
+    </form>
+</body>
+</html>

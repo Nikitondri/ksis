@@ -1,0 +1,94 @@
+.menu_background
+    position: fixed
+    height: 100vh
+    width: 100%
+    background-color: #f6f2f2
+    //background-color: red
+    background-attachment: revert
+    top: 0
+    z-index: -10
+
+.menu_section
+    //background-color: #f6f2f2
+    min-height: 500px
+    padding-top: 50px
+    .menu_section_title
+        font-size: 50px
+        font-weight: 900
+        text-align: center
+        color: $mainColor
+    .menu_section_types
+        margin-top: 50px
+        display: flex
+        justify-content: center
+        flex-wrap: wrap
+        .menu_section_type
+            margin-inline: 10px
+            font-weight: 700
+            font-size: 25px
+            color: $mainColor
+            text-decoration: none
+            cursor: pointer
+            background: transparent
+            padding-bottom: 10px
+            transition: 0.1s
+            border: none #f6f2f2
+            border-bottom-style: solid
+            //display: inline
+            &:hover
+                color: $secondColor
+                //text-decoration: underline
+                //border-bottom: solid
+                border-color: $secondColor
+    .menu_section_items
+        display: flex
+        flex-wrap: wrap
+        margin-bottom: 50px
+        margin-top: 40px
+        .menu_section_item
+            width: 33%
+            position: relative
+            padding: 30px
+            cursor: pointer
+            transition: 0.6s
+            .menu_section_link
+                text-decoration: none
+                transition: 0.6s
+                overflow: hidden
+                display: inline-block
+                .menu_section_img
+                    width: 100%
+                    display: block
+                    transition: 0.8s
+                .menu_section_text
+                    text-align: center
+                    font-size: 25px
+                    font-weight: 900
+                    color: $mainColor
+                    transition: 0.6s
+                .menu_section_button
+                    display: block
+                    margin-inline: auto
+                    font-weight: 500
+                    font-size: 15px
+                    cursor: pointer
+                    background-color: $mainColor
+                    border-radius: 30px
+                    color: white
+                    border: none
+                    height: 40px
+                    width: 60%
+                    opacity: 0
+                    transition: 0.6s
+                    &:hover
+                        background-color: #363434FF
+            &:hover .menu_section_img
+                transform: scale(0.7)
+            &:hover .menu_section_text
+                margin-top: 0
+                //margin-bottom: 50px
+            &:hover .menu_section_button
+                opacity: 100
+                margin-bottom: 25px
+            &:hover
+                background-color: rgba(242, 198, 77, 0.4)

@@ -1,0 +1,305 @@
+body, html
+	margin: 0
+	padding: 0
+
+.authorization_background
+	min-height: 100vh
+	//background-image: url("../img/background.jpg")
+	//background-color: #313030
+	position: fixed
+
+.enter
+	position: absolute
+	display: flex
+	background-color: #f6f2f2
+	flex-direction: column
+	top: 50%
+	left: 50%
+	height: 450px
+	width: 700px
+	border-radius: 20px
+	margin: -225px 0 0 -350px
+	padding-top: 15px
+	.enter_title
+		text-align: center
+		text-transform: uppercase
+		font-size: 30px
+		font-weight: 900
+	.enter_choice
+		display: flex
+		justify-content: space-between
+		padding-inline: 30px
+
+		.enter_buttons
+			display: flex
+			flex-direction: column
+			justify-content: flex-end
+			padding-bottom: 10px
+			.error_message
+				color: red
+				font-weight: 500
+				font-size: 12px
+				margin-top: 7px
+				margin-left: 27px
+			#clickLogin
+				display: none
+			.clickLogin
+				margin-top: 30px
+				display: flex
+				justify-content: center
+				align-items: center
+				text-decoration: none
+				position: relative
+				border-width: 3px
+				text-transform: uppercase
+				border-color: $secondColor
+				background-color: white
+				border-style: solid
+				border-radius: 30px
+				width: 250px
+				height: 60px
+				font-size: 15px
+				color: $secondColor
+				line-height: 1.878
+				font-weight: 700
+				cursor: pointer
+				margin-inline: auto
+				transition: 0.5s
+				&:hover
+					background-color: $secondColor
+					color: white
+			#clickRegister
+				display: none
+			.clickRegister
+				margin-top: 20px
+				display: flex
+				justify-content: center
+				align-items: center
+				text-align: center
+				text-decoration: none
+				position: relative
+				border-width: 3px
+				text-transform: uppercase
+				border-color: $secondColor
+				background-color: $secondColor
+				border-style: solid
+				border-radius: 30px
+				width: 250px
+				height: 60px
+				font-size: 15px
+				color: white
+				line-height: 1.878
+				font-weight: 700
+				cursor: pointer
+				margin-inline: auto
+				transition: 0.5s
+				&:hover
+					background-color: white
+					color: $secondColor
+			#clickLogin:checked~.modal_login
+				opacity: 1
+				visibility: visible
+			#clickRegister:checked~.modal_register
+				opacity: 1
+				visibility: visible
+
+		.enter_logo_img
+			position: static
+			height: 300px
+			//width: 250px
+			z-index: 5
+			filter: brightness(0)
+	//&:hover~.modal_login
+	//	opacity: 1
+	//	visibility: visible
+
+
+.modal_login
+	position: absolute
+	top: 50%
+	left: 50%
+	transform: translate(-50%,-50%)
+	background-color: $mainColor
+	z-index: 55
+	opacity: 0
+	visibility: hidden
+	width: 720px
+	height: 500px
+	padding: 30px 35px 40px
+	box-sizing: border-box
+	border-radius: 15px
+	box-shadow: 0 0 5px $secondColor
+	transition: 0.5s
+	#times
+		//background-color: $mainColor
+		position: absolute
+		right: 10px
+		top: 20px
+		font-size: 25px
+		background: $mainColor
+		padding: 20px
+		//padding: 3px 11px 3px 11px
+		border-radius: 50%
+		//box-shadow: -4px -4px 7px #fffdfdb7, 3px 3px 5px rgba(94, 104, 121, 0.24)
+		cursor: pointer
+		img
+			position: absolute
+			width: 50%
+			top: 10px
+			left: 10px
+	.login_title
+		color: white
+		text-transform: uppercase
+		font-size: 25px
+		font-weight: 700
+		transition: 0.5s
+		text-align: center
+	.login_form
+		margin-top: 40px
+		.login_label
+			text-align: left
+			position: relative
+			color: white
+			display: block
+			margin-top: 30px
+			font-size: 16px
+			font-weight: 500
+		.login_input
+			background-color: white
+			display: block
+			height: 43px
+			width: 100%
+			margin-inline: auto
+			border-radius: 10px
+			border: none
+			//box-shadow: inset 2px 2px 5px #babecc, inset -5px -5px 10px #ffffff73
+			margin-top: 14px
+			font-size: 14px
+			font-weight: 500
+			padding-left: 10px
+			outline: none
+		::placeholder
+			color: #4b4e4d
+		.login_button
+			margin-top: 70px
+			//text-decoration: none
+			display: block
+			position: relative
+			border-width: 3px
+			text-transform: uppercase
+			border-color: $secondColor
+			border-style: solid
+			border-radius: 25px
+			//width: 250px
+			width: 100%
+			height: 55px
+			font-size: 15px
+			line-height: 1.878
+			font-weight: 700
+			cursor: pointer
+			margin-inline: auto
+			transition: 0.5s
+			background-color: $secondColor
+			color: white
+			&:hover
+				//background-color: $secondColor
+				//color: white
+				color: $secondColor
+				background-color: white
+				box-shadow: 0 0 5px rgb(0 0 0 / 50%)
+
+.modal_register
+	position: absolute
+	top: 50%
+	left: 50%
+	transform: translate(-50%,-50%)
+	background-color: $mainColor
+	z-index: 55
+	opacity: 0
+	visibility: hidden
+	width: 720px
+	height: 600px
+	//background: #dde1e7
+	padding: 30px 35px 40px
+	box-sizing: border-box
+	border-radius: 15px
+	box-shadow: 0 0 5px $secondColor
+	transition: 0.5s
+	#timesRegister
+		//background-color: $mainColor
+		position: absolute
+		right: 10px
+		top: 20px
+		font-size: 25px
+		//background: #dde1e7
+		background: $mainColor
+		padding: 20px
+		//padding: 3px 11px 3px 11px
+		border-radius: 50%
+		//box-shadow: -4px -4px 7px #fffdfdb7, 3px 3px 5px rgba(94, 104, 121, 0.24)
+		cursor: pointer
+		img
+			position: absolute
+			width: 50%
+			top: 10px
+			left: 10px
+	.login_title
+		color: white
+		transition: 0.5s
+		text-align: center
+		text-transform: uppercase
+	.register_form
+		margin-top: 40px
+		.login_label
+			text-align: left
+			position: relative
+			color: white
+			display: block
+			margin-top: 30px
+			font-size: 16px
+			font-weight: 500
+		.login_input
+			background-color: white
+			display: block
+			height: 43px
+			width: 100%
+			margin-inline: auto
+			border-radius: 10px
+			border: none
+			//box-shadow: inset 2px 2px 5px #babecc, inset -5px -5px 10px #ffffff73
+			margin-top: 14px
+			font-size: 14px
+			font-weight: 500
+			padding-left: 10px
+			outline: none
+		::placeholder
+			color: #4b4e4d
+		.login_button
+			margin-top: 70px
+			//text-decoration: none
+			display: block
+			position: relative
+			border-width: 3px
+			text-transform: uppercase
+			border-color: $secondColor
+			border-style: solid
+			border-radius: 25px
+			//width: 250px
+			width: 100%
+			height: 55px
+			font-size: 15px
+			line-height: 1.878
+			font-weight: 700
+			cursor: pointer
+			margin-inline: auto
+			transition: 0.5s
+			background-color: $secondColor
+			color: white
+			&:hover
+				//background-color: $secondColor
+				//color: white
+				color: $secondColor
+				background-color: white
+				box-shadow: 0 0 5px rgb(0 0 0 / 50%)
+
+

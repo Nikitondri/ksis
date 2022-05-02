@@ -1,0 +1,173 @@
+$mainColor: rgb(30, 28, 28)
+$secondColor: #f2c64d
+$min-width: 120px
+
+*
+    font-family: 'Roboto', sans-serif
+    box-sizing: border-box
+
+.container
+    position: relative
+    margin-left: auto
+    margin-right: auto
+    max-width: 1250px
+
+
+@mixin transform($value)
+    -webkit-transform: ($value)
+        -moz-transform: ($value)
+            -ms-transform: ($value)
+                transform: ($value)
+
+@mixin transition($value)
+    -webkit-transition: ($value)
+        -moz-transition: ($value)
+            -ms-transition: ($value)
+                transition: ($value)
+
+.background
+    position: fixed
+    background-attachment: fixed
+    top: 0
+    z-index: -10
+
+
+header
+    margin-top: 30px
+    //font-family: 'Open Sans', sans-serif
+    font-weight: 900
+    background: $mainColor
+    padding: 10px
+    color: white
+    text-align: center
+    position: sticky
+    //height: 50px
+    top: 0
+    z-index: 10
+
+nav
+    background-color: $mainColor
+
+#main
+    position: relative
+    list-style: none
+    background: $mainColor
+    font-weight: 400
+    font-size: 0
+    text-transform: uppercase
+    display: inline-block
+    padding: 0
+    margin: 10px auto
+    .menu_item
+        font-size: 0.8rem
+        display: inline-block
+        position: relative
+        padding: 15px 20px
+        cursor: pointer
+        z-index: 5
+        min-width: $min-width
+        transition: 0.2s
+        color: white
+        text-decoration: none
+        &:hover
+            color: $secondColor
+
+
+
+
+.menu_item
+    margin: 0
+
+.drop
+    overflow: hidden
+    list-style: none
+    position: absolute
+    padding: 0
+    width: 100%
+    left: 0
+    top: 48px
+    .menu_drop_item
+        font-size: 0.8rem
+        text-decoration: none
+        display: inline-block
+        position: relative
+        padding: 15px 20px
+        cursor: pointer
+        z-index: 5
+        min-width: $min-width
+        color: white
+        transition: 0.2s
+        &:hover
+            color: $secondColor
+    div
+        @include transform(translate(0,-100%))
+        @include transition(all 0.5s 0.1s)
+        position: relative
+    a
+        display: block
+        padding: 0
+        width: 100%
+        background: $mainColor !important
+
+
+#marker
+    height: 6px
+    background: $secondColor !important
+    position: absolute
+    bottom: 0
+    width: $min-width
+    z-index: 2
+    @include transition(all 0.35s)
+
+@for $i from 1 through 3
+    #main .menu_item:nth-child(#{$i})
+        &:hover ul div
+            @include transform(translate(0,0))
+
+        &:hover ~ #marker
+            @include transform(translate(#{(-1+$i)*$min-width},0))
+
+
+.divider
+    display: block
+    margin-inline: auto
+    margin-bottom: 10px
+    background-color: $secondColor
+    width: 200px
+    height: 3px
+
+footer
+    background-color: $mainColor
+    padding: 58px 0 37px 0
+    .footer
+        display: flex
+        justify-content: space-between
+        .footer_text
+            font-size: 16px
+            font-weight: 500
+            color: rgb(184, 184, 184)
+            line-height: 1.625
+        .footer_social
+            display: flex
+            margin-inline: -9px
+            .footer_social_item
+                margin-inline: 9px
+                transition: 0.2s
+
+.footer_social_icon
+    transition: 0.2s
+
+
+.footer .footer_social .footer_social_item:hover .footer_social_icon
+    opacity: 0.5
+
+@import "general"
+@import "food_menu"
+@import "authorization"
+@import "menu"
+@import "user_info"
+@import "media/media"
+@import "playlists"
+@import "playlist_new"
+@import "playlist"
+

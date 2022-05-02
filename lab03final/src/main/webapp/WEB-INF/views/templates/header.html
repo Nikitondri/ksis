@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <link rel="stylesheet" type="text/css" media="all" href="/sass/style.css" th:href="@{/sass/style.css}">
+</head>
+<body>
+<div th:fragment="header">
+  <nav>
+    <div class="container">
+      <ul id="main">
+        <a class="menu_item" th:href="@{/playlists}"><li>HOME</li></a>
+        <a class="menu_item" href="${pageContext.request.contextPath}/jsp/menu.jsp"><li>MENU</li></a>
+        <li class="menu_item">INFO
+          <ul class="drop">
+            <div>
+              <a class="menu_drop_item"  href="${pageContext.request.contextPath}/jsp/user_info.jsp">
+                <li>Info</li>
+              </a>
+              <a class="menu_drop_item" href="#">
+                <li>Orders</li>
+              </a>
+              <a class="menu_drop_item" href="${pageContext.request.contextPath}/controller?command=SIGN_OUT">
+                <li>Exit</li>
+              </a>
+            </div>
+          </ul>
+        </li>
+        <div id="marker"></div>
+      </ul>
+    </div>
+  </nav>
+</div>
+</body>
+</html>

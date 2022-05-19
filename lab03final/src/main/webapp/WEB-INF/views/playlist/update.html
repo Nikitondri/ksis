@@ -3,12 +3,22 @@
 <head>
     <meta charset="UTF-8">
     <title>Update</title>
+    <link rel="stylesheet" type="text/css" media="all" href="/sass/style.css" th:href="@{/sass/style.css}">
 </head>
 <body>
-    <form th:object="${playlist}" th:method="patch" th:action="@{/playlists/{id}(id=${playlist.id})}">
-        <label for="namePlaylist"></label><input type="text" th:field="*{name}" id="namePlaylist">
-        <label for="updateButton">Update: </label>
-        <input th:type="submit" th:value="UPDATE" id="updateButton">
-    </form>
+
+    <header th:insert="templates/header.html :: header"></header>
+    <section class="enter_playlist_name">
+        <div class="enter_playlist_name_area">
+            <div class="enter_playlist_name_user" th:text="${user.getLogin()}"></div>
+            <form class="form_playlist_name" th:object="${playlist}" th:method="patch" th:action="@{/playlists/{id}(id=${playlist.id})}">
+                <label class="playlist_name_title" for="playlistName">Playlist name</label>
+                <input class="input_playlist_name" type="text" id="playlistName" th:field="*{name}">
+                <input class="button_playlist_name" th:type="submit" th:value="UPDATE" id="updateButton">
+            </form>
+        </div>
+    </section>
+    <footer th:insert="templates/footer.html :: footer"></footer>
+
 </body>
 </html>

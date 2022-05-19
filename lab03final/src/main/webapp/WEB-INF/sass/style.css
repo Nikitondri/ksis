@@ -145,32 +145,6 @@ nav {
   -webkit-transform--moz-transform--ms-transform-transform: translate(120px, 0);
 }
 
-#main .menu_item:nth-child(3):hover ul div {
-  -webkit-transform: translate(0, 0);
-  -webkit-transform--moz-transform: translate(0, 0);
-  -webkit-transform--moz-transform--ms-transform: translate(0, 0);
-  -webkit-transform--moz-transform--ms-transform-transform: translate(0, 0);
-}
-#main .menu_item:nth-child(3):hover ~ #marker {
-  -webkit-transform: translate(240px, 0);
-  -webkit-transform--moz-transform: translate(240px, 0);
-  -webkit-transform--moz-transform--ms-transform: translate(240px, 0);
-  -webkit-transform--moz-transform--ms-transform-transform: translate(240px, 0);
-}
-
-#main .menu_item:nth-child(4):hover ul div {
-  -webkit-transform: translate(0, 0);
-  -webkit-transform--moz-transform: translate(0, 0);
-  -webkit-transform--moz-transform--ms-transform: translate(0, 0);
-  -webkit-transform--moz-transform--ms-transform-transform: translate(0, 0);
-}
-#main .menu_item:nth-child(4):hover ~ #marker {
-  -webkit-transform: translate(360px, 0);
-  -webkit-transform--moz-transform: translate(360px, 0);
-  -webkit-transform--moz-transform--ms-transform: translate(360px, 0);
-  -webkit-transform--moz-transform--ms-transform-transform: translate(360px, 0);
-}
-
 .divider {
   display: block;
   margin-inline: auto;

@@ -10,7 +10,7 @@
 
     <section class="playlists">
         <div class="container">
-            <h1 class="playlists_title">Playlist:</h1>
+            <h1 class="playlists_title">Playlist</h1>
             <p class="login_user" th:text="${playlist.name}"></p>
             <a class="add_playlist_button_link" th:href="@{/playlists/update}">
                 <button class="add_playlist_button">Update</button>
@@ -36,27 +36,6 @@
                     </a>
                 </div>
             </div>
-
-<!--            <ul>-->
-<!--                <th:block th:each="trackItem : ${playlist.getTrackList()}">-->
-<!--                    &lt;!&ndash;            <li><a th:href="${trackItem.getPath()}" th:utext="${trackItem.name}"></a></li>&ndash;&gt;-->
-<!--                    &lt;!&ndash;            <form th:action="@{/tracks/{id}(id=${trackItem.getId()})}" th:method="get">&ndash;&gt;-->
-<!--                    &lt;!&ndash;                <li ></li>&ndash;&gt;-->
-<!--                    &lt;!&ndash;            </form>&ndash;&gt;-->
-<!--                    <li>-->
-<!--                        <a th:utext="${trackItem.name}" th:href="@{/tracks/{id}(id=${trackItem.getId()})}"></a>-->
-<!--                    </li>-->
-<!--&lt;!&ndash;                    <form th:action="@{/tracks/{id}(id=${trackItem.id})}" th:method="delete">&ndash;&gt;-->
-<!--&lt;!&ndash;                        <label for="deleteTrackButton">Delete track</label>&ndash;&gt;-->
-<!--&lt;!&ndash;                        <input th:type="submit" th:value="DELETE" id="deleteTrackButton">&ndash;&gt;-->
-<!--&lt;!&ndash;                    </form>&ndash;&gt;-->
-<!--                    <a th:href="@{/tracks/update/{id}(id=${trackItem.id})}" th:text="update"></a>-->
-<!--                    &lt;!&ndash;            <form th:action="@{/tracks/{id}(id=${trackItem.id})}" th:method="patch">&ndash;&gt;-->
-<!--                    &lt;!&ndash;                <label for="updateTrackButton">Delete track</label>&ndash;&gt;-->
-<!--                    &lt;!&ndash;                <input th:type="submit" th:value="UPDATE" id="updateTrackButton">&ndash;&gt;-->
-<!--                    &lt;!&ndash;            </form>&ndash;&gt;-->
-<!--                </th:block>-->
-<!--            </ul>-->
         </div>
     </section>
 

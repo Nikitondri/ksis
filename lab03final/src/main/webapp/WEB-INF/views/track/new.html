@@ -2,29 +2,74 @@
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
-    <title>Title</title>
+    <title>Add tracks</title>
+    <link rel="stylesheet" type="text/css" media="all" href="/sass/style.css" th:href="@{/sass/style.css}">
+
 </head>
 <body>
-<!--    <form th:method="post" th:action="@{/playlists/new}" th:object="${playlist}" enctype="multipart/form-data">-->
-<!--        <label for="playlistName">Playlist name</label>-->
-<!--        <input type="text" id="playlistName" th:field="*{name}">-->
-<!--        <input type="file" name="file" >-->
-<!--        <input type="submit">-->
+    <header th:insert="templates/header.html :: header"></header>
+
+    <section class="playlists">
+        <div class="container">
+            <h1 class="playlists_title">Playlist</h1>
+            <p class="login_user" th:text="${playlist.name}"></p>
+
+            <form class="input_file_form" th:action="@{/tracks}" th:method="post" enctype="multipart/form-data">
+                <div class="add_playlist_button_link">
+                    <label class="add_playlist_button" for="file">Choose file</label>
+                </div>
+                <input class="input_file" type="file" name="file" id="file">
+
+                <div class="add_playlist_button_link">
+                    <input class="add_playlist_button" type="submit" value="Upload">
+                </div>
+            </form>
+
+
+<!--            <a class="add_playlist_button_link" th:href="@{/playlists/update}">-->
+<!--                <button class="add_playlist_button">Update</button>-->
+<!--            </a>-->
+
+
+            <a class="add_playlist_button_link" th:href="@{/playlists}">
+                <button class="add_playlist_button">End</button>
+            </a>
+
+            <div class="divider"></div>
+
+            <div class="playlists_wrapper">
+                <div th:each="trackItem : ${playlist.getTrackList()}" class="playlist_item">
+                    <div class="playlist_item_link" th:href="@{/tracks/{id}(id=${trackItem.getId()})}">
+                        <div class="playlist_item_name" th:utext="${trackItem.name}"></div>
+<!--                        <form th:action="@{/tracks/{id}(id=${trackItem.id})}" th:method="delete">-->
+<!--                            <label for="deleteTrackButton"></label>-->
+<!--                            <input class="playlist_item_delete_button" th:type="submit" th:value="DELETE" id="deleteTrackButton">-->
+<!--                        </form>-->
+<!--                        <form th:action="@{/tracks/update/{id}(id=${trackItem.id})}" th:method="get">-->
+<!--                            <label for="updateTrackButton"></label>-->
+<!--                            <input class="playlist_item_delete_button" th:type="submit" th:value="UPDATE" id="updateTrackButton">-->
+<!--                        </form>-->
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+
+
+<!--    <form th:action="@{/tracks}" th:method="post" enctype="multipart/form-data">-->
+<!--        <input type="file" name="file">-->
+<!--        <input type="submit" value="Upload">-->
 <!--    </form>-->
-    <form th:action="@{/tracks}" th:method="post" enctype="multipart/form-data">
-<!--        <label for="trackName"></label><input type="text" th:field="*{name}" id="trackName">-->
-<!--        <label for="trackPath"></label><input type="text" th:field="*{path}" id="trackPath">-->
-        <input type="file" name="file">
-        <input type="submit" value="Upload">
-    </form>
-    <a th:href="@{/playlists}">
-        <button>End</button>
-    </a>
-    <p>//////////////////////////////////////////////////////</p>
-    <ul>
-        <th:block th:each="trackItem : ${playlist.getTrackList()}">
-            <li th:utext="${trackItem.name}"></li>
-        </th:block>
-    </ul>
+<!--    <a th:href="@{/playlists}">-->
+<!--        <button>End</button>-->
+<!--    </a>-->
+<!--    <ul>-->
+<!--        <th:block th:each="trackItem : ${playlist.getTrackList()}">-->
+<!--            <li th:utext="${trackItem.name}"></li>-->
+<!--        </th:block>-->
+<!--    </ul>-->
+
+    <footer th:insert="templates/footer.html :: footer"></footer>
 </body>
 </html>

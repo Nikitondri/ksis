@@ -993,6 +993,9 @@ body, html {
   font-weight: 500;
   font-size: 20px;
 }
+.playlists .input_file_form .input_file {
+  display: none;
+}
 .playlists .add_playlist_button_link {
   text-decoration: none;
 }
@@ -1117,6 +1120,7 @@ body, html {
   border: none;
   outline: none;
   margin-top: 30px;
+  padding-left: 10px;
 }
 .enter_playlist_name .enter_playlist_name_area .form_playlist_name .button_playlist_name {
   margin-top: 20px;

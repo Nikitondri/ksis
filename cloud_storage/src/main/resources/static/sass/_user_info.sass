@@ -1,0 +1,45 @@
+.user_info_title
+    margin-top: 30px
+    text-align: center
+    font-weight: 900
+    margin-bottom: 30px
+.section_user_info
+    margin-top: 30px
+    margin-bottom: 50px
+    .user_info_wrapper
+        display: flex
+        flex-direction: column
+        width: 80%
+        margin-inline: auto
+        border-radius: 20px
+        border-width: 2px
+        border-style: solid
+        border-color: $secondColor
+        //padding: 0 15px
+        .user_info_item
+            position: relative
+            display: flex
+            justify-content: space-between
+            margin-bottom: 15px
+            margin-top: 15px
+            .user_info_param
+                text-align: left
+                font-size: 22px
+                margin-left: 20px
+                font-weight: 500
+                width: 25%
+            .user_info_text
+                opacity: 60%
+                text-align: left
+                width: 70%
+                font-size: 22px
+                font-weight: 500
+        .user_info_divider
+            display: block
+            margin-inline: auto
+            //margin-bottom: 10px
+            background-color: #f2c64d
+            width: 95%
+            height: 1px
+            &:last-child
+                display: none

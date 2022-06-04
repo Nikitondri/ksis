@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Update</title>
+    <link rel="stylesheet" type="text/css" media="all" href="/sass/style.css" th:href="@{/sass/style.css}">
+</head>
+<body>
+
+    <header th:insert="header.html :: header"></header>
+
+    <section class="enter_playlist_name">
+        <div class="enter_playlist_name_area">
+            <div class="enter_playlist_name_user" th:text="${file.getPackage    ().getName()}"></div>
+            <form class="form_playlist_name" th:object="${track}" th:method="patch" th:action="@{/tracks}">
+                <label class="playlist_name_title" for="trackName">Track name</label>
+                <input class="input_playlist_name" type="text" th:field="*{name}" id="trackName">
+                <input class="button_playlist_name" th:type="submit" th:value="UPDATE" id="updateButton">
+            </form>
+        </div>
+    </section>
+
+    <footer th:insert="footer.html :: footer"></footer>
+
+
+<!--    <form th:object="${track}" th:method="patch" th:action="@{/tracks}">-->
+<!--        <label for="namePlaylist"></label>-->
+<!--        <input type="text" th:field="*{name}" id="namePlaylist">-->
+<!--        <label for="updateButton">Update: </label>-->
+<!--        <input th:type="submit" th:value="UPDATE" id="updateButton">-->
+<!--    </form>-->
+</body>
+</html>

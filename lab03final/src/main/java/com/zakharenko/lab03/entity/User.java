@@ -20,6 +20,10 @@ public class User {
     @Column(name = "password")
     private String password;
 
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "role_id")
+    private Role role;
+
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "user", fetch = FetchType.EAGER)
     private List<Playlist> playlistList;
 
@@ -28,6 +32,12 @@ public class User {
     public User(String login, String password) {
         this.login = login;
         this.password = password;
+    }
+
+    public User(String login, String password, Role role) {
+        this.login = login;
+        this.password = password;
+        this.role = role;
     }
 
     public void addPlayList(Playlist playlist){
@@ -63,6 +73,22 @@ public class User {
 
     public List<Playlist> getPlaylistList() {
         return playlistList;
+    }
+
+    public Role getRole() {
+        return role;
+    }
+
+    public void setRole(Role role) {
+        this.role = role;
+    }
+
+    public void setPlaylistList(List<Playlist> playlistList) {
+        this.playlistList = playlistList;
+    }
+
+    public boolean isAdmin(){
+        return role.getId() == 2;
     }
 
     @Override

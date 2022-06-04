@@ -2,16 +2,17 @@ package com.zakharenko.lab03.controller;
 
 import com.zakharenko.lab03.entity.Playlist;
 import com.zakharenko.lab03.entity.User;
+import com.zakharenko.lab03.exception.AccessException;
 import com.zakharenko.lab03.service.PlaylistService;
 import com.zakharenko.lab03.service.UserService;
 import com.zakharenko.lab03.service.exception.ServiceException;
+import com.zakharenko.lab03.tool.CheckTotalSize;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.ServletContext;
-import java.util.List;
 
 @Controller
 @RequestMapping("/playlists")
@@ -32,20 +33,12 @@ public class PlaylistController {
 
     @GetMapping
     public String showPlaylists(@ModelAttribute("user") User user, Model model){
-//            @ModelAttribute("playlist") Playlist playlist,
-//            @ModelAttribute("user") User user,
-//            Model model){
-//        if(playlist == null){
-//            playlist = new Playlist();
-//        }
-//        playlist.setName("playlist");
-//        playlist.setUser(user);
-//        model.addAttribute("user", user);
-
         userId = user.getId();
         try {
-            List<Playlist> playlists = playlistService.findPlaylistByUserId(userId);
-            model.addAttribute("user", userService.findUser(userId));
+            User newUser = userService.findUser(userId);
+            model.addAttribute("user", newUser);
+            model.addAttribute("sizeMap", CheckTotalSize.findMapTotalSizePlaylist(user.getPlaylistList()));
+            model.addAttribute("totalSize", CheckTotalSize.findTotalSizeUser(newUser));
         } catch (ServiceException e) {
             e.printStackTrace();
         }
@@ -69,14 +62,13 @@ public class PlaylistController {
             e.printStackTrace();
         }
         model.addAttribute("playlist", playlist);
+        model.addAttribute("sizeMap", CheckTotalSize.findMapTotalSizeTrack(playlist.getTrackList()));
+        model.addAttribute("totalSize", CheckTotalSize.findTotalSizePlaylist(playlist));
         return "playlist/playlist";
     }
 
     @PostMapping
     public String addPlaylist(Model model, @ModelAttribute("user") User user, @ModelAttribute("playlist") Playlist playlist){
-//        Playlist playlist = new Playlist();
-//        }
-//        playlist.setName("playlist");
         playlist.setUser(user);
         user.addPlayList(playlist);
         try {
@@ -84,21 +76,24 @@ public class PlaylistController {
         } catch (ServiceException e) {
             e.printStackTrace();
         }
-//        model.addAttribute("playlist", playlist);
         return "/track/new";
     }
 
     @DeleteMapping("/{id}")
-    public String deletePlaylist(@ModelAttribute("user") User user, @ModelAttribute("playlist") Playlist playlist, @PathVariable long id){
-        try {
-            playlistService.deletePlaylist(
-                    id,
-                    context.getRealPath("resources/music") + "\\" + userId + "\\" + playlist.getId()
-            );
-        } catch (ServiceException e) {
-            e.printStackTrace();
+    public String deletePlaylist(@ModelAttribute("user") User user, @ModelAttribute("playlist") Playlist playlist, @PathVariable long id) throws AccessException {
+        if(playlistService.isHasUserPlaylist(user, id)) {
+            try {
+                playlistService.deletePlaylist(
+                        id,
+                        context.getRealPath("resources/music") + "\\" + userId + "\\" + playlist.getId()
+                );
+            } catch (ServiceException e) {
+                e.printStackTrace();
+            }
+            return "redirect:/users/" + userId;
+        } else {
+            throw new AccessException();
         }
-        return "redirect:/users/" + userId;
     }
 
     @GetMapping("update")
@@ -107,13 +102,17 @@ public class PlaylistController {
     }
 
     @PatchMapping("/{id}")
-    public String updatePlaylist(Model model, @ModelAttribute("playlist") Playlist playlist, @PathVariable long id){
-        try {
-            model.addAttribute("playlist", playlistService.updatePlaylist(playlist));
-        } catch (ServiceException e) {
-            e.printStackTrace();
+    public String updatePlaylist(Model model, @ModelAttribute("playlist") Playlist playlist, @PathVariable long id, @ModelAttribute("user") User user) throws AccessException {
+        if(playlistService.isHasUserPlaylist(user, id)) {
+            try {
+                model.addAttribute("playlist", playlistService.updatePlaylist(playlist));
+            } catch (ServiceException e) {
+                e.printStackTrace();
+            }
+            return "redirect:/playlists/" + id;
+        } else {
+            throw new AccessException();
         }
-        return "redirect:/playlists/" + id;
     }
 
     @ModelAttribute("playlist")

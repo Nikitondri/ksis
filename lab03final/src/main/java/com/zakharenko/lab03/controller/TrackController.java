@@ -4,7 +4,10 @@ import com.google.protobuf.ServiceException;
 import com.zakharenko.lab03.entity.Playlist;
 import com.zakharenko.lab03.entity.Track;
 import com.zakharenko.lab03.entity.User;
+import com.zakharenko.lab03.exception.AccessException;
 import com.zakharenko.lab03.service.TrackService;
+import com.zakharenko.lab03.tool.CheckTotalSize;
+import com.zakharenko.lab03.tool.CryptoUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.io.InputStreamResource;
 import org.springframework.http.HttpHeaders;
@@ -17,10 +20,7 @@ import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import javax.servlet.ServletContext;
-import java.io.File;
-import java.io.FileInputStream;
-import java.io.FileNotFoundException;
-import java.io.IOException;
+import java.io.*;
 import java.nio.file.Files;
 import java.nio.file.LinkOption;
 import java.nio.file.Paths;
@@ -47,22 +47,29 @@ public class TrackController {
     ){
         model.addAttribute("user", user);
         model.addAttribute("playlist", playlist);
+        model.addAttribute("sizeMap", CheckTotalSize.findMapTotalSizeTrack(playlist.getTrackList()));
         return "track/new";
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<InputStreamResource> downloadTrack(@PathVariable long id){
+    public ResponseEntity<InputStreamResource> downloadTrack(@PathVariable long id, @SessionAttribute("user") User user) throws AccessException {
         try {
             Track track = trackService.findTrackById(id);
-            File file = new File(track.getPath());
-            InputStreamResource resource = new InputStreamResource(new FileInputStream(file));
-            return ResponseEntity.ok()
-                    .header(HttpHeaders.CONTENT_DISPOSITION, "attachment;filename=" + track.getName())
-                    .contentType(MediaType.valueOf(MediaType.APPLICATION_OCTET_STREAM_VALUE))
-                    .contentLength(file.length()) //
-                    .body(resource);
+            if (track.getPlaylist().getUser().getId() == user.getId()) {
+                byte[] bytes = CryptoUtils.decrypt(new FileInputStream(track.getPath()).readAllBytes());
+                InputStreamResource resource = new InputStreamResource(new ByteArrayInputStream(bytes));
+                return ResponseEntity.ok()
+                        .header(HttpHeaders.CONTENT_DISPOSITION, "attachment;filename=" + track.getName())
+                        .contentType(MediaType.valueOf(MediaType.APPLICATION_OCTET_STREAM_VALUE))
+                        .contentLength(bytes.length) //
+                        .body(resource);
+            } else {
+                throw new AccessException();
+            }
         } catch (ServiceException | FileNotFoundException e) {
             e.printStackTrace();
+            return null;
+        } catch (IOException e) {
             return null;
         }
     }
@@ -92,8 +99,8 @@ public class TrackController {
                 }
             }
             String pathMusic = pathDir + "\\" + track.getId();
-            trackService.uploadTrack(file, pathMusic);
-            trackService.setPath(track, pathMusic);
+            int size = trackService.uploadTrack(file, pathMusic);
+            trackService.setPathAndSize(track, pathMusic, size);
         } catch (ServiceException e) {
             throw new ServiceException(e);
         }
@@ -101,20 +108,25 @@ public class TrackController {
     }
 
     @DeleteMapping("/{id}")
-    public String deleteTrack(@PathVariable long id, @SessionAttribute("playlist") Playlist playlist){
-        try {
-            trackService.deleteTrack(trackService.findTrackById(id));
-        } catch (ServiceException e) {
-            e.printStackTrace();
+    public String deleteTrack(@PathVariable long id, @SessionAttribute("playlist") Playlist playlist, @SessionAttribute("user") User user) throws AccessException {
+        if(trackService.isHasUserTrack(user, id)) {
+            try {
+                trackService.deleteTrack(trackService.findTrackById(id));
+            } catch (ServiceException e) {
+                e.printStackTrace();
+            }
+            return "redirect:/playlists/" + playlist.getId();
+        } else {
+            throw new AccessException();
         }
-        return "redirect:/playlists/" + playlist.getId();
     }
 
     @GetMapping("update/{id}")
-    public String goToUpdateTrack(@PathVariable long id, Model model){
+    public String goToUpdateTrack(@PathVariable long id, @SessionAttribute("user") User user, Model model){
         try {
             Track track = trackService.findTrackById(id);
             model.addAttribute("track", track);
+            model.addAttribute("user", user);
         } catch (ServiceException e) {
             e.printStackTrace();
         }
@@ -122,12 +134,16 @@ public class TrackController {
     }
 
     @PatchMapping
-    public String updateTrack(@ModelAttribute("track") Track track){
-        try {
-            trackService.updateTrack(track);
-        } catch (ServiceException e) {
-            e.printStackTrace();
+    public String updateTrack(@ModelAttribute("track") Track track, @SessionAttribute("user") User user) throws AccessException {
+        if(trackService.isHasUserTrack(user, track.getId())) {
+            try {
+                trackService.updateTrack(track);
+            } catch (ServiceException e) {
+                e.printStackTrace();
+            }
+            return "redirect:/playlists/" + track.getPlaylist().getId();
+        } else {
+            throw new AccessException();
         }
-        return "redirect:/playlists/" + track.getPlaylist().getId();
     }
 }

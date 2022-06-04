@@ -1,0 +1,86 @@
+.playlists
+    margin-top: 30px
+    .playlists_title
+        text-align: center
+        font-weight: 700
+        font-size: 30px
+    .login_user
+        margin-top: 20px
+        text-align: center
+        font-weight: 500
+        font-size: 20px
+    .input_file_form
+        .input_file
+            display: none
+    .add_playlist_button_link
+        text-decoration: none
+        .add_playlist_button
+            margin-bottom: 30px
+            margin-top: 20px
+            display: flex
+            justify-content: center
+            align-items: center
+            text-align: center
+            text-decoration: none
+            position: relative
+            border-width: 2px
+            text-transform: uppercase
+            border-color: $secondColor
+            background-color: $secondColor
+            border-style: solid
+            border-radius: 30px
+            width: 150px
+            height: 40px
+            font-size: 15px
+            color: white
+            line-height: 1.878
+            font-weight: 700
+            cursor: pointer
+            margin-inline: auto
+            transition: 0.5s
+            &:hover
+                background-color: white
+                color: $secondColor
+    .playlists_wrapper
+        position: relative
+        display: flex
+        flex-wrap: wrap
+        justify-content: flex-start
+        margin-top: 20px
+        margin-bottom: 20px
+        min-height: 200px
+        .playlist_item
+            width: 30%
+            padding: 10px
+            background-color: silver
+            border-radius: 20px
+            margin-inline: 20px
+            margin-bottom: 20px
+            .playlist_item_link
+                text-decoration: none
+                color: black
+                .playlist_item_name
+                    text-align: center
+                    font-weight: 500
+                    margin-top: 10px
+                    margin-bottom: 20px
+                .playlist_item_delete_button
+                    display: block
+                    margin-inline: auto
+                    font-weight: 500
+                    font-size: 15px
+                    cursor: pointer
+                    background-color: $mainColor
+                    border-radius: 30px
+                    color: white
+                    border: none
+                    height: 40px
+                    width: 60%
+                    //opacity: 0
+                    transition: 0.6s
+                    margin-bottom: 10px
+                    &:hover
+                        background-color: #363434FF
+
+
+

@@ -18,9 +18,10 @@
 <!--              <a class="menu_drop_item"  href="${pageContext.request.contextPath}/jsp/user_info.jsp">-->
 <!--                <li>Info</li>-->
 <!--              </a>-->
-<!--              <a class="menu_drop_item" href="#">-->
-<!--                <li>Orders</li>-->
-<!--              </a>-->
+
+              <a class="menu_drop_item" th:href="@{/users/all}" th:if="${user.isAdmin()}">
+                <li>Info</li>
+              </a>
               <a class="menu_drop_item" th:href="@{/}">
                 <li>Exit</li>
               </a>

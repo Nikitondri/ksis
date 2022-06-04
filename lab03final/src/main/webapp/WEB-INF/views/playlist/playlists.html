@@ -2,7 +2,7 @@
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
-    <title>Title</title>
+    <title>Home</title>
     <link rel="stylesheet" type="text/css" media="all" href="/sass/style.css" th:href="@{/sass/style.css}">
 </head>
 <body>
@@ -11,6 +11,7 @@
         <div class="container">
             <h1 class="playlists_title">Playlists</h1>
             <p class="login_user" th:text="${user.getLogin()}"></p>
+            <p class="login_user" th:text="'Total size: ' + ${totalSize} + 'KB'"></p>
             <a th:href="@{/playlists/new}" class="add_playlist_button_link">
                 <button class="add_playlist_button">Add</button>
             </a>
@@ -21,6 +22,7 @@
                     <div th:each="playlistItem : ${user.getPlaylistList()}" class="playlist_item">
                         <a class="playlist_item_link" th:href="@{/playlists/{id}(id=${playlistItem.id})}">
                             <div class="playlist_item_name" th:utext="${playlistItem.name}"></div>
+                            <div class="playlist_item_name" th:utext="'Size: ' + ${sizeMap.get(playlistItem.getId())} + 'KB'"></div>
                             <form th:method="delete" th:action="@{/playlists/{id}(id=${playlistItem.id})}">
                                 <label for="deleteButton"></label>
                                 <input class="playlist_item_delete_button" th:type="submit" th:value="DELETE" id="deleteButton">

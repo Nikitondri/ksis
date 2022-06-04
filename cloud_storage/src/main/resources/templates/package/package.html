@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <link rel="stylesheet" type="text/css" media="all" href="/sass/style.css" th:href="@{/sass/style.css}">
+</head>
+<body>
+    <header th:insert="templates/header.html :: header"></header>
+
+    <section class="playlists">
+        <div class="container">
+            <h1 class="playlists_title">Playlist</h1>
+            <p class="login_user" th:text="${playlist.name}"></p>
+            <a class="add_playlist_button_link" th:href="@{/playlists/update}">
+                <button class="add_playlist_button">Update</button>
+            </a>
+            <a class="add_playlist_button_link" th:href="@{/tracks/new}">
+                <button class="add_playlist_button">Add</button>
+            </a>
+
+            <div class="divider"></div>
+
+            <div class="playlists_wrapper">
+                <div th:each="trackItem : ${playlist.getTrackList()}" class="playlist_item">
+                    <a class="playlist_item_link" th:href="@{/tracks/{id}(id=${trackItem.getId()})}">
+                        <div class="playlist_item_name" th:utext="${trackItem.name}"></div>
+                        <form th:action="@{/tracks/{id}(id=${trackItem.id})}" th:method="delete">
+                            <label for="deleteTrackButton"></label>
+                            <input class="playlist_item_delete_button" th:type="submit" th:value="DELETE" id="deleteTrackButton">
+                        </form>
+                        <form th:action="@{/tracks/update/{id}(id=${trackItem.id})}" th:method="get">
+                            <label for="updateTrackButton"></label>
+                            <input class="playlist_item_delete_button" th:type="submit" th:value="UPDATE" id="updateTrackButton">
+                        </form>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+
+    <footer th:insert="templates/footer.html :: footer"></footer>
+</body>
+</html>

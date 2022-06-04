@@ -12,6 +12,7 @@
         <div class="container">
             <h1 class="playlists_title">Playlist</h1>
             <p class="login_user" th:text="${playlist.name}"></p>
+            <p class="login_user" th:text="'Total size: ' + ${totalSize} + 'KB'"></p>
             <a class="add_playlist_button_link" th:href="@{/playlists/update}">
                 <button class="add_playlist_button">Update</button>
             </a>
@@ -25,6 +26,7 @@
                 <div th:each="trackItem : ${playlist.getTrackList()}" class="playlist_item">
                     <a class="playlist_item_link" th:href="@{/tracks/{id}(id=${trackItem.getId()})}">
                         <div class="playlist_item_name" th:utext="${trackItem.name}"></div>
+                        <div class="playlist_item_name" th:utext="'Size: ' + ${sizeMap.get(trackItem.getId())} + 'KB'"></div>
                         <form th:action="@{/tracks/{id}(id=${trackItem.id})}" th:method="delete">
                             <label for="deleteTrackButton"></label>
                             <input class="playlist_item_delete_button" th:type="submit" th:value="DELETE" id="deleteTrackButton">

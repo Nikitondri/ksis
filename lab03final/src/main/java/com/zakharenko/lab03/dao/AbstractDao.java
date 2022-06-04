@@ -2,6 +2,7 @@ package com.zakharenko.lab03.dao;
 
 import com.zakharenko.lab03.dao.exception.DaoException;
 import com.zakharenko.lab03.entity.Playlist;
+import com.zakharenko.lab03.entity.Role;
 import com.zakharenko.lab03.entity.Track;
 import com.zakharenko.lab03.entity.User;
 import org.hibernate.Session;
@@ -21,6 +22,7 @@ public class AbstractDao<T> implements Dao<T> {
                 .addAnnotatedClass(Playlist.class)
                 .addAnnotatedClass(User.class)
                 .addAnnotatedClass(Track.class)
+                .addAnnotatedClass(Role.class)
                 .buildSessionFactory();
     }
 
@@ -64,7 +66,6 @@ public class AbstractDao<T> implements Dao<T> {
         }
         Session session = getCurrentSession();
         session.beginTransaction();
-//        session.saveOrUpdate(entity);
         session.persist(entity);
         session.getTransaction().commit();
         return entity;

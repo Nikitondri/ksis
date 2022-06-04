@@ -1,0 +1,38 @@
+@media (max-width: 1200px)
+    footer .footer
+        margin-inline: 60px
+
+@media (max-width: 767px)
+    footer .footer
+        margin-inline: 22px
+        .footer_text
+            font-size: 11px
+
+@media (max-width: 575px)
+    #main .menu_item
+        min-width: 90px
+    #marker
+        width: 90px
+
+    #main .menu_item:nth-child(1)
+        &:hover ~ #marker
+            @include transform(translate(#{(-1+1)*90px},0))
+    #main .menu_item:nth-child(2)
+        &:hover ~ #marker
+            @include transform(translate(#{(-1+2)*90px},0))
+    #main .menu_item:nth-child(3)
+        &:hover ~ #marker
+            @include transform(translate(#{(-1+3)*90px},0))
+
+    .drop .menu_drop_item
+        min-width: 90px
+
+    footer .footer
+        margin-inline: 15px
+        .footer_social
+            margin-inline: -21px
+        .footer_text
+            font-size: 7px
+
+@import "media_index"
+@import "media_menu"

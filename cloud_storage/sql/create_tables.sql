@@ -1,86 +1,38 @@
--- Create table
-create table APP_USER
-(
-    USER_ID           BIGINT not null,
-    USER_NAME         VARCHAR(36) not null,
-    ENCRYPTED_PASSWORD VARCHAR(128) not null,
-    ENABLED           BIT not null
-) ;
---
-alter table APP_USER
-    add constraint APP_USER_PK primary key (USER_ID);
+CREATE TABLE `role` (
+    `id` int unsigned NOT NULL AUTO_INCREMENT,
+    `name` varchar(255) NOT NULL,
+    PRIMARY KEY (`id`)
+) CHARSET=utf8mb3;
 
-alter table APP_USER
-    add constraint APP_USER_UK unique (USER_NAME);
-
-
--- Create table
-create table APP_ROLE
-(
-    ROLE_ID   BIGINT not null,
-    ROLE_NAME VARCHAR(30) not null
-) ;
---
-alter table APP_ROLE
-    add constraint APP_ROLE_PK primary key (ROLE_ID);
-
-alter table APP_ROLE
-    add constraint APP_ROLE_UK unique (ROLE_NAME);
+CREATE TABLE `user` (
+    `id` int unsigned NOT NULL AUTO_INCREMENT,
+    `login` varchar(255) NOT NULL,
+    `password` varchar(255) NOT NULL,
+    `role_id` int unsigned NOT NULL,
+    PRIMARY KEY (`id`),
+    KEY `FK_role` (`role_id`),
+    CONSTRAINT `FK_role` FOREIGN KEY (`role_id`) REFERENCES `role` (`id`) ON DELETE RESTRICT ON UPDATE CASCADE,
+    UNIQUE KEY `login` (`login`)
+) CHARSET=utf8mb3;
 
 
--- Create table
-create table USER_ROLE
-(
-    ID      BIGINT not null,
-    USER_ID BIGINT not null,
-    ROLE_ID BIGINT not null
-);
---
-alter table USER_ROLE
-    add constraint USER_ROLE_PK primary key (ID);
+CREATE TABLE `package` (
+    `id` int unsigned NOT NULL AUTO_INCREMENT,
+    `name` varchar(255) NOT NULL,
+    `user_id` int unsigned NOT NULL,
+    PRIMARY KEY (`id`),
+    KEY `FK_user` (`user_id`),
+    CONSTRAINT `FK_user` FOREIGN KEY (`user_id`) REFERENCES `user` (`id`) ON DELETE RESTRICT ON UPDATE CASCADE
+) CHARSET=utf8mb3;
 
-alter table USER_ROLE
-    add constraint USER_ROLE_UK unique (USER_ID, ROLE_ID);
+CREATE TABLE `myFile` (
+    `id` int unsigned NOT NULL AUTO_INCREMENT,
+    `name` varchar(255) NOT NULL,
+    `size` int unsigned NOT NULL,
+    `package_id` int unsigned NOT NULL,
+    `path` varchar(255) DEFAULT NULL,
+    PRIMARY KEY (`id`),
+    KEY `FK_package` (`package_id`),
+    CONSTRAINT `FK_package` FOREIGN KEY (`package_id`) REFERENCES `package` (`id`) ON DELETE RESTRICT ON UPDATE CASCADE
+) CHARSET=utf8mb3;
 
-alter table USER_ROLE
-    add constraint USER_ROLE_FK1 foreign key (USER_ID)
-        references APP_USER (USER_ID);
-
-alter table USER_ROLE
-    add constraint USER_ROLE_FK2 foreign key (ROLE_ID)
-        references APP_ROLE (ROLE_ID);
-
-
--- Used by Spring Remember Me API.
-CREATE TABLE Persistent_Logins (
-
-                                   username varchar(64) not null,
-                                   series varchar(64) not null,
-                                   token varchar(64) not null,
-                                   last_used timestamp not null,
-                                   PRIMARY KEY (series)
-
-);
-
-
-insert into App_User (USER_ID, USER_NAME, ENCRYPTED_PASSWORD, ENABLED)
-values (2, 'dbuser1', '$2a$10$PrI5Gk9L.tSZiW9FXhTS8O8Mz9E97k2FZbFvGFFaSsiTUIl.TCrFu', 1);
-
-insert into App_User (USER_ID, USER_NAME, ENCRYPTED_PASSWORD, ENABLED)
-values (1, 'dbadmin1', '$2a$10$PrI5Gk9L.tSZiW9FXhTS8O8Mz9E97k2FZbFvGFFaSsiTUIl.TCrFu', 1);
-
-
-insert into app_role (ROLE_ID, ROLE_NAME)
-values (1, 'ROLE_ADMIN');
-
-insert into app_role (ROLE_ID, ROLE_NAME)
-values (2, 'ROLE_USER');
-
-insert into user_role (ID, USER_ID, ROLE_ID)
-values (1, 1, 1);
-
-insert into user_role (ID, USER_ID, ROLE_ID)
-values (2, 1, 2);
-
-insert into user_role (ID, USER_ID, ROLE_ID)
-values (3, 2, 2);

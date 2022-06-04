@@ -3,6 +3,8 @@ package com.zakharenko.lab03.service.impl;
 import com.zakharenko.lab03.dao.exception.DaoException;
 import com.zakharenko.lab03.dao.impl.playlist.PlaylistDao;
 import com.zakharenko.lab03.entity.Playlist;
+import com.zakharenko.lab03.entity.User;
+import com.zakharenko.lab03.exception.AccessException;
 import com.zakharenko.lab03.service.PlaylistService;
 import com.zakharenko.lab03.service.exception.ServiceException;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -55,14 +57,11 @@ public class PlaylistServiceImpl implements PlaylistService {
         if (!file.exists())
             return;
 
-        //если это папка, то идем внутрь этой папки и вызываем рекурсивное удаление всего, что там есть
         if (file.isDirectory()) {
             for (File f : Objects.requireNonNull(file.listFiles())) {
-                // рекурсивный вызов
                 deleteFolder(f);
             }
         }
-        // вызываем метод delete() для удаления файлов и пустых(!) папок
         file.delete();
     }
 
@@ -82,5 +81,15 @@ public class PlaylistServiceImpl implements PlaylistService {
         } catch (DaoException e) {
             throw new ServiceException(e);
         }
+    }
+
+    @Override
+    public boolean isHasUserPlaylist(User user, long playlistId) {
+        for(Playlist playlist : user.getPlaylistList()){
+            if(playlist.getId() == playlistId){
+                return true;
+            }
+        }
+        return false;
     }
 }

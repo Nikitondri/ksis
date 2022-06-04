@@ -1,0 +1,119 @@
+body, html
+    margin: 0
+    padding: 0
+    //overflow-x: hidden
+
+.promo
+    padding-top: 50px
+    //min-height: 500px
+    z-index: -1
+    display: flex
+    .main_logo
+        position: static
+        height: 400px
+        z-index: 3
+    .main_title
+        text-align: center
+        font-weight: 900
+        color: white
+        font-size: 50px
+        text-transform: uppercase
+        margin-bottom: 115px
+
+.food_menu
+    background-color: #f6f2f2
+    padding-top: 80px
+    padding-bottom: 110px
+    h2
+        margin-bottom: 25px
+        font-weight: 700
+        text-align: center
+        text-transform: uppercase
+        color: $mainColor
+    h3
+        font-weight: 500
+        text-align: center
+        color: $mainColor
+    .food_wrapper
+        display: flex
+        flex-wrap: wrap
+        margin-bottom: 50px
+        margin-top: 40px
+        .food_item
+            width: 33%
+            position: relative
+            padding: 15px
+            .food_link
+                text-decoration: none
+                transition: 0.3s
+                overflow: hidden
+                display: inline-block
+                .food_img
+                    width: 100%
+                    display: block
+                    transition: 0.8s
+                .food_type
+                    //display: none
+                    color: white
+                    font-weight: 700
+                    font-size: 0
+                    text-transform: uppercase
+                    position: absolute
+                    top: 50%
+                    left: 50%
+                    transform: translate(-50%, -50%)
+                    transition: 0.8s
+                &:hover .food_img
+                    transform: scale(1.2)
+                    filter: brightness(40%)
+                &:hover .food_type
+                    //display: block
+                    font-size: 40px
+    .food_button_link
+        text-decoration: none
+        .food_button
+            text-decoration: none
+            display: block
+            position: relative
+            border-width: 3px
+            text-transform: uppercase
+            border-color: $secondColor
+            background-color: white
+            border-style: solid
+            border-radius: 10px
+            width: 250px
+            height: 60px
+            font-size: 15px
+            color: $secondColor
+            line-height: 1.878
+            font-weight: 700
+            cursor: pointer
+            margin-inline: auto
+            transition: 0.5s
+            &:hover
+                background-color: $secondColor
+                color: white
+                box-shadow: 0 0 5px rgb(0 0 0 / 50%)
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

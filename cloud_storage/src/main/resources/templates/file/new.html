@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Add tracks</title>
+    <link rel="stylesheet" type="text/css" media="all" href="/sass/style.css" th:href="@{/sass/style.css}">
+
+</head>
+<body>
+    <header th:insert="header.html :: header"></header>
+
+    <section class="playlists">
+        <div class="container">
+            <h1 class="playlists_title">Playlist</h1>
+            <p class="login_user" th:text="${package.name}"></p>
+
+            <form class="input_file_form" th:action="@{/files}" th:method="post" enctype="multipart/form-data">
+                <div class="add_playlist_button_link">
+                    <label class="add_playlist_button" for="file">Choose myFile</label>
+                </div>
+                <input class="input_file" type="file" name="file" id="file">
+
+                <div class="add_playlist_button_link">
+                    <input class="add_playlist_button" type="submit" value="Upload">
+                </div>
+            </form>
+
+
+<!--            <a class="add_playlist_button_link" th:href="@{/playlists/update}">-->
+<!--                <button class="add_playlist_button">Update</button>-->
+<!--            </a>-->
+
+
+            <a class="add_playlist_button_link" th:href="@{/packages}">
+                <button class="add_playlist_button">End</button>
+            </a>
+
+            <div class="divider"></div>
+
+            <div class="playlists_wrapper">
+                <div th:each="fileItem : ${package.myFileList()}" class="playlist_item">
+                    <div class="playlist_item_link" th:href="@{/files/{id}(id=${fileItem.getId()})}">
+                        <div class="playlist_item_name" th:utext="${fileItem.name}"></div>
+<!--                        <form th:action="@{/tracks/{id}(id=${trackItem.id})}" th:method="delete">-->
+<!--                            <label for="deleteTrackButton"></label>-->
+<!--                            <input class="playlist_item_delete_button" th:type="submit" th:value="DELETE" id="deleteTrackButton">-->
+<!--                        </form>-->
+<!--                        <form th:action="@{/tracks/update/{id}(id=${trackItem.id})}" th:method="get">-->
+<!--                            <label for="updateTrackButton"></label>-->
+<!--                            <input class="playlist_item_delete_button" th:type="submit" th:value="UPDATE" id="updateTrackButton">-->
+<!--                        </form>-->
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+
+
+<!--    <form th:action="@{/tracks}" th:method="post" enctype="multipart/form-data">-->
+<!--        <input type="myFile" name="myFile">-->
+<!--        <input type="submit" value="Upload">-->
+<!--    </form>-->
+<!--    <a th:href="@{/playlists}">-->
+<!--        <button>End</button>-->
+<!--    </a>-->
+<!--    <ul>-->
+<!--        <th:block th:each="trackItem : ${playlist.getTrackList()}">-->
+<!--            <li th:utext="${trackItem.name}"></li>-->
+<!--        </th:block>-->
+<!--    </ul>-->
+
+    <footer th:insert="footer.html :: footer"></footer>
+</body>
+</html>
